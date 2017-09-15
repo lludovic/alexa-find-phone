@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "284502304056",
+    "firebase_url": "https://alexa-find-my-device.firebaseio.com",
+    "project_id": "alexa-find-my-device",
+    "storage_bucket": "alexa-find-my-device.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284502304056:android:718161fedd6402ef",
+        "android_client_info": {
+          "package_name": "alexa.xebia.com.myphone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284502304056-qcr1johqggqb87j4h8oegicsj383jjal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNkWDQ7HuljAuRfrjrgsU1xGkTXRnjL9w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

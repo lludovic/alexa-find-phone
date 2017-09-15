@@ -1,0 +1,84 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: alexa-my-phone
+
+plugins:
+  - serverless-webpack
+
+# Enable auto-packing of external modules
+custom:
+  webpackIncludeModules: true
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+# you can overwrite defaults here
+  stage: dev
+  region: eu-west-1
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DeleteTable
+        - dynamodb:DescribeTable
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/alexa-user"
+
+functions:
+  find-my-phone:
+    handler: handler.handle
+    environment:
+      fcmAuthorizationKey: AAAAQj2opTg:APA91bHdYYOHHqew18YLWk9dNOOliIjLIRgyy1cRPO0IyCV5LFEhQJUtMEiXBra8ADo82oi1MFP6sBNmeSoUuLnw_HQZah4DzWAGkxieeimf2TIM0Cl0FzV2jp6libzTMep3Is3YXH3G
+    events:
+      - alexaSkill
+  update-phone:
+    handler: phone.updatePhone
+    events:
+      - http:
+          path: users/{userId}
+          method: put
+  ring-phone:
+      handler: phone.ringPhone
+      events:
+        - http:
+            path: users/phones/ring
+            method: post
+
+resources:
+  Resources:
+    AlexaLocationTable:
+      Type: 'AWS::DynamoDB::Table'
+      # DeletionPolicy: Retain
+      Properties:
+        # note that only attributes used as keys should be defined here. other attributes are defined dynamically
+        AttributeDefinitions:
+          - AttributeName: 'userId'
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: 'userId'
+            KeyType: 'HASH'
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: alexa-user

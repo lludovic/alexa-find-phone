@@ -1,0 +1,17 @@
+{
+    "intents":[
+        {
+            "intent": "FindMyPhone",
+            "slots": []
+        },
+        {
+            "intent": "FindPhoneByName",
+            "slots": [
+                {
+                    "name": "phoneName",
+                    "type": "LITERAL"
+                }
+            ]
+        }
+    ]
+}
