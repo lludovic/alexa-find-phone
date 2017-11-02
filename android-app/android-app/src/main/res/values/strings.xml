@@ -3,6 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="register_title">Register your amazon device</string>
+    <string name="phone_name">Phone name</string>
+    <string name="user_id">User token</string>
     <string name="register">Register</string>
 
     <!-- Strings related to MainActivity-->

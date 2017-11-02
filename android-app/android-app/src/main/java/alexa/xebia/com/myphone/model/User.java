@@ -1,7 +1,5 @@
 package alexa.xebia.com.myphone.model;
 
-import android.bluetooth.BluetoothClass;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,5 +1,5 @@
 import unirest from "unirest";
-import {phoneService} from "./service/phone-service";
+import {userService} from "./service/user-service";
 
 const updatePhone = (event, context, cb) => {
     try {
@@ -7,17 +7,17 @@ const updatePhone = (event, context, cb) => {
         console.log('body: ', event.body);
 
         const userId = event.pathParameters.userId;
-        phoneService.findUser(userId)
+        userService.findUser(userId)
             .then(user => {
                 if (user) {
-                    phoneService.updateUser(event.body)
+                    userService.updateUser(JSON.parse(event.body))
                         .then(() => cb(null, {
                             statusCode: 200,
                             headers: {
                                 "Access-Control-Allow-Origin": "*", // Required for CORS support to work
                                 "Access-Control-Allow-Credentials": true // Required for cookies, authorization headers with HTTPS
                             },
-                            body: `user update`,
+                            body: JSON.parse(event.body)
                         }))
                         .catch(() => cb(null, {
                             statusCode: 404,
@@ -25,7 +25,7 @@ const updatePhone = (event, context, cb) => {
                                 "Access-Control-Allow-Origin": "*",
                                 "Access-Control-Allow-Credentials": true
                             },
-                            body: `user=${userId} not found`,
+                            body: {message : `user=${userId} not found`}
                         }))
                     ;
                 } else {

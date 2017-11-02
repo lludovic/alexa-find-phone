@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText userIdText;
 
+    private EditText phoneNameText;
+
     private String userId;
 
     @Override
@@ -70,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         userIdText = (EditText) findViewById(R.id.user_id);
+        userIdText.setText(userId);
+        phoneNameText = (EditText) findViewById(R.id.phone_name);
+        phoneNameText.setText("my");
 
         Button logTokenButton = (Button) findViewById(R.id.register_user_button);
         logTokenButton.setOnClickListener(this);
@@ -100,8 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG, "error " + error.getMessage());
-                    Toast.makeText(MainActivity.this, "device registration failed", Toast.LENGTH_LONG).show();
+                    Log.e(TAG, "error on update " + error.getMessage(), error);
+//                    Toast.makeText(MainActivity.this, "device registration failed : "+error.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -140,10 +145,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 user.setUserId(userIdText.getText().toString());
                 List<Device> devices = new ArrayList<>();
                 //todo add field to make user set phone name
-                devices.add(new Device("me", token));
+                devices.add(new Device(phoneNameText.getText().toString(), token));
                 user.setDevices(devices);
 
-                createUser(user);
+                this.createUser(user);
 
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
                 break;
